@@ -5,7 +5,6 @@ import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Map.Entry;
 import java.util.stream.Collectors;
 
 import org.springframework.data.domain.Page;
@@ -46,39 +45,29 @@ public class HomeController {
 	@GetMapping("/")
 	public String index(Model model) {
 
-		//評価の高い順に店舗を表示する
-		List<Restaurant> restaurant = restaurantRepository.findAll();
-		Map<Review, Double> scoreAvg = new HashMap<>();
+		List<Restaurant> restaurants = restaurantRepository.findAll();
+		Map<Restaurant, Double> scoreAvg = new HashMap<>();
 
-		//レビュー投稿がある店舗のレビュー文forEachで回し、Mapへ格納する
-		for (Restaurant s : restaurant) {
-			List<Review> review = reviewRepository.findByRestaurant(s);
-			int score = 0;
-			for (Review r : review) {
-				//店舗毎にトータルスコアを算出
-				score += r.getScore();
-
-			}
-			if (score != 0) { 
-
-				//店舗毎に算出されたトータルスコアをレビュー数で割り平均スコアを算出
-				double avg = (double) score / review.size();
-				//後程ビューに送るため、Mapへそれぞれ格納
-				scoreAvg.put(review.get(0), avg);
-
-			}
+		for (Restaurant restaurant : restaurants) {
+		    List<Review> reviews = reviewRepository.findByRestaurant(restaurant);
+		    if (!reviews.isEmpty()) {
+		        // トータルスコアを算出し、平均スコアを計算
+		        double avg = reviews.stream().mapToInt(Review::getScore).average().orElse(0.0);
+		        scoreAvg.put(restaurant, avg);
+		    }
 		}
-		//作成したMapをvalue値に対して降順でソートをかける
-		List<Entry<Review, Double>> scoreSort = scoreAvg.entrySet().stream()
-				.sorted(Map.Entry.comparingByValue(Comparator.reverseOrder()))
-				.collect(Collectors.toList());
+
+		// 作成したMapを値（平均スコア）の降順でソートし、キー（Restaurant）を取得
+		List<Map.Entry<Restaurant, Double>> scoreSort = scoreAvg.entrySet().stream()
+		    .sorted(Map.Entry.<Restaurant, Double>comparingByValue(Comparator.reverseOrder()))
+		    .collect(Collectors.toList());
 
 		model.addAttribute("scoreSort", scoreSort);
 
 		//新着順に店舗をソートし、上位六位までのデータをビューに送信
-		List<Restaurant> restaurants = restaurantRepository.findTop6ByOrderByCreatedAtDesc();
+		List<Restaurant> restaurantList = restaurantRepository.findTop6ByOrderByCreatedAtDesc();
 
-		model.addAttribute("restaurants", restaurants);
+		model.addAttribute("restaurants", restaurantList);
 
 		//カテゴリーを全権取得
 		List<Category> categories = categoryRepository.findAll();

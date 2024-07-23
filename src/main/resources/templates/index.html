@@ -91,17 +91,17 @@
 					<div class="row">
 						<!--上位六位までを#numbers.sequenceで表示-->
 						<div class="col-md-2" th:each="	i : ${#numbers.sequence(1,6)}">
-							<img th:if="${scoreSort[i-1].key.restaurant.image_name}"
-								th:src="@{/storage/__${scoreSort[i-1].key.restaurant.image_name}__}" class="w-100" alt="店舗画像">
-							<img th:unless="${scoreSort[i-1].key.restaurant.image_name}" th:src="@{/images/noImage.png}"
+							<img th:if="${scoreSort[i-1].key.image_name}"
+								th:src="@{/storage/__${scoreSort[i-1].key.image_name}__}" class="w-100" alt="店舗画像">
+							<img th:unless="${scoreSort[i-1].key.image_name}" th:src="@{/images/noImage.png}"
 								class="w-100" alt="NO IMAGE">
 							<div class="row pb-2 mb-2 border-bottom">
 								<div class="col-4">
 									<span class="fw-bold">店舗名</span>
 								</div>
 								<div class="col">
-									<a th:href="@{/top/__${scoreSort[i-1].key.restaurant.name}__}"
-										th:text="${scoreSort[i-1].key.restaurant.name}"></a>
+									<a th:href="@{/top/__${scoreSort[i-1].key.name}__}"
+										th:text="${scoreSort[i-1].key.name}"></a>
 								</div>
 							</div>
 							<div class="row pb-2 mb-2 border-bottom">
@@ -109,7 +109,7 @@
 									<span class="fw-bold">スコア</span>
 								</div>
 								<div class="col">
-									<span th:text="${scoreSort[i-1].key.score}"></span>
+									<span th:text="${scoreSort[i-1].value}"></span>
 								</div>
 							</div>
 							<div class="row pb-2 mb-2 border-bottom">
@@ -117,7 +117,7 @@
 									<span class="fw-bold">説明</span>
 								</div>
 								<div class="col">
-									<span th:text="${scoreSort[i-1].key.restaurant.description}"></span>
+									<span th:text="${scoreSort[i-1].key.description}"></span>
 								</div>
 							</div>
 
