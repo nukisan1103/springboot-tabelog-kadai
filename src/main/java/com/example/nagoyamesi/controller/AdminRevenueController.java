@@ -25,14 +25,14 @@ import com.example.nagoyamesi.security.UserDetailsImpl;
 public class AdminRevenueController {
 	private final UserRepository userRepository;
 	private final RoleRepository roleRepository;
-	//private final SubscriptionService subscriptionService;
+
 
 	private static final int SUBSCRIPTION_FEE = 330;
 
 	public AdminRevenueController(UserRepository userRepository, RoleRepository roleRepository) {
 		this.userRepository = userRepository;
 		this.roleRepository = roleRepository;
-		//this.subscriptionService = subscriptionService;
+	
 	}
 
 	//管理者用売上管理ページ遷移用
@@ -78,7 +78,7 @@ public class AdminRevenueController {
         
         // "YYYY-MM-01"形式の文字列をLocalDateに変換
         LocalDate selectPeriodDate = LocalDate.parse(selectPeriod + "-01", formatter);
-		LocalDate today = LocalDate.now();
+		
 		long period = 0;
 		long totalRevenue = 0;
 		//取得した有料会員データ分だけ繰り返す
