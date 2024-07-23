@@ -19,9 +19,9 @@
 	</properties>
 	<dependencies>
 		<dependency>
-5          <groupId>org.springframework.boot</groupId>
-6          <artifactId>spring-boot-starter-mail</artifactId>
-7       </dependency>
+          <groupId>org.springframework.boot</groupId>
+          <artifactId>spring-boot-starter-mail</artifactId>
+       </dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-data-jpa</artifactId>
