@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.example.nagoyamesi.entity.Category;
@@ -88,5 +89,25 @@ public class AdminCategoryController {
 			redirectAttributes.addFlashAttribute("successMessage", "カテゴリーを登録しました。");
 
 			return "redirect:/admin/restaurants";
+		}
+		
+		//管理者用：カテゴリー検索結果を返す
+		@GetMapping("/search")
+		public String categorySearch(Model model,
+				@RequestParam(name = "keyword", required = false) String keyword) {
+			
+			List<Category> categoryList;
+			
+			if (keyword != null && !keyword.isEmpty()) {
+				
+			categoryList = categoryRepository.findByCategoryLike("%" + keyword + "%");
+			
+			}else {
+				
+			categoryList = categoryRepository.findAll();
+			
+			}
+			model.addAttribute("categories", categoryList);
+			return "admin/category/index";
 		}
 }

@@ -33,8 +33,21 @@
 						<div th:if="${successMessage}" class="alert alert-info">
 							<span th:text="${successMessage}"></span>
 						</div>
-
 						<br>
+						
+						<div class="row">
+							<div class="col-3">
+								<div class="d-flex justify-content-between align-items-end flex-wrap">
+									<form method="get" th:action="@{/admin/category/search}" class="mb-3">
+										<div class="input-group">
+											<input type="text" class="form-control" name="keyword" th:value="${keyword}"
+												placeholder="カテゴリ名">
+											<button type="submit"
+												class="btn text-white shadow-sm nagoyameshi-btn">検索</button>
+										</div>
+									</form>
+								</div>
+							</div>
 						<hr class="hr1">
 
 						<div class="container">
