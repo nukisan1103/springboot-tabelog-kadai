@@ -1,0 +1,69 @@
+
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<head>
+	<div th:replace="~{fragment :: meta}"></div>
+
+	<div th:replace="~{fragment :: styles}"></div>
+
+	<title>予約一覧</title>
+</head>
+
+<body>
+	<div class="nagoyameshi-wrapper">
+		<!-- ヘッダー -->
+		<div th:replace="~{fragment :: header}"></div>
+
+		<main>
+			<div class="container nagoyameshi-container pb-5">
+				<div class="row justify-content-center">
+					<div class="col-xxl-9 col-xl-10 col-lg-11">
+						<nav class="my-3" style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
+							<ol class="breadcrumb mb-0">
+								<li sec:authorize="hasRole('ROLE_GENERAL')" class="breadcrumb-item"><a th:href="@{/restaurants}">ホーム</a></li>
+								<li sec:authorize="hasRole('ROLE_SUBSCRIBER')" class="breadcrumb-item"><a th:href="@{/restaurants/subscriber}">ホーム</a></li>
+								<li class="breadcrumb-item active" aria-current="page">レビュー一覧</li>
+							</ol>
+						</nav>
+
+						<h1 class="mb-3 text-center">レビュー一覧</h1>
+						<hr class="hr1">
+
+						<table class="table">
+							<thead>
+								<tr>
+									<th scope="col">店舗名</th>
+									<th scope="col">投稿者</th>
+									<th scope="col">レビュー内容</th>
+									<th scope="col">スコア</th>
+
+								</tr>
+							</thead>
+							<tbody>
+								<tr th:each="review : ${reviewPage}">
+									<td>
+										<a sec:authorize="hasRole('ROLE_SUBSCRIBER')" th:href="@{/restaurants/subscriber/__${review.getRestaurant().getId()}__}"
+											th:text="${review.getRestaurant().getName()}"></a>
+											<a sec:authorize="hasRole('ROLE_GENERAL')" th:href="@{/restaurants/__${review.getRestaurant().getId()}__}"
+											th:text="${review.getRestaurant().getName()}"></a>
+									</td>
+									<td th:text="${review.getUser.getName()}"></td>
+									<td th:text="${review.getSentense()}"></td>
+									<td th:text="${review.getScore()}"></td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+		</main>
+
+		<!-- フッター -->
+		<div th:replace="~{fragment :: footer}"></div>
+	</div>
+
+	<div th:replace="~{fragment :: scripts}"></div>
+</body>
+
+</html>

@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<head>
+
+	<div th:replace="~{fragment :: meta}"></div>
+
+	<div th:replace="~{fragment :: styles}"></div>
+
+	<title>店舗詳細</title>
+</head>
+
+<body>
+
+	<div class="nagoyameshi-wrapper">
+		<!-- ヘッダー -->
+		<div th:replace="~{fragment :: header}"></div>
+
+		<main>
+			<div class="container pt-4 pb-5 nagoyameshi-container">
+				<div class="row justify-content-center">
+					<div class="col-xl-5 col-lg-6 col-md-8">
+						<nav class="mb-4" style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
+							<ol class="breadcrumb mb-0">
+								<li class="breadcrumb-item"><a th:href="@{/}">トップ</a></li>
+								<li class="breadcrumb-item active" aria-current="page">店舗詳細</li>
+							</ol>
+						</nav>
+
+						<h1 class="mb-4 text-center" th:text="${restaurants.getName()}"></h1>
+						
+						
+						
+						<div class="d-flex justify-content-end align-items-end mb-3">
+							
+						</div>
+
+						<div class="mb-3">
+							<img th:if="${restaurants.getImage_name()}"
+								th:src="@{/storage/__${restaurants.getImage_name()}__}" class="w-100" alt="店舗画像">
+							<img th:unless="${restaurants.getImage_name()}" th:src="@{/images/noImage.png}"
+								class="w-100" alt="NO IMAGE">
+						</div>
+
+						<div class="container mb-4">
+						
+							<div class="row pb-2 mb-2 border-bottom">
+								<div class="col-4">
+									<span class="fw-bold">店舗名</span>
+								</div>
+
+								<div class="col">
+									<span th:text="${restaurants.getName()}"></span>
+								</div>
+							</div>
+
+							<div class="row pb-2 mb-2 border-bottom">
+								<div class="col-4">
+									<span class="fw-bold">説明</span>
+								</div>
+
+								<div class="col">
+									<span class="nagoyameshi-pre-wrap" th:text="${restaurants.getDescription()}"></span>
+								</div>
+							</div>
+
+							<div class="row pb-2 mb-2 border-bottom">
+								<div class="col-4">
+									<span class="fw-bold">営業時間</span>
+								</div>
+
+								<div class="col">
+									<span class="nagoyameshi-pre-wrap"
+										th:text="${restaurants.getOpening_time()} + '~' + ${restaurants.getClosing_time()}">
+									</span>
+								</div>
+							</div>
+
+							<div class="row pb-2 mb-2 border-bottom">
+								<div class="col-4">
+									<span class="fw-bold">定員</span>
+								</div>
+
+								<div class="col">
+									<span th:text="${restaurants.getCapacity() + '人'}"></span>
+								</div>
+							</div>
+
+							<div class="row pb-2 mb-2 border-bottom">
+								<div class="col-4">
+									<span class="fw-bold">定休日</span>
+								</div>
+
+								<div class="col">
+									<span th:text="${restaurants.getRegular_holiday()}"></span>
+								</div>
+							</div>
+
+							<div class="row pb-2 mb-2 border-bottom">
+								<div class="col-4">
+									<span class="fw-bold">住所</span>
+								</div>
+
+								<div class="col">
+									<span th:text="${restaurants.getAddress()}"></span>
+								</div>
+							</div>
+
+							<div class="row pb-2 mb-2 border-bottom">
+								<div class="col-4">
+									<span class="fw-bold">電話番号</span>
+								</div>
+
+								<div class="col">
+									<span th:text="${restaurants.getPhone_number()}"></span>
+								</div>
+							</div>
+						</div>
+					
+					</div>
+				</div>
+			</div>
+		</main>
+
+		<!-- フッター の部品化-->
+		<div th:replace="~{fragment :: footer}"></div>
+	</div>
+
+	<!-- Bootstrapの部品化 -->
+	<div th:replace="~{fragment :: scripts}"></div>
+
+	<!-- Flatpickr -->
+	<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+	<script src="https://cdn.jsdelivr.net/npm/flatpickr/dist/l10n/ja.js"></script>
+	<script th:src="@{/js/flatpickr.js}"></script>
+</body>
+
+</html>

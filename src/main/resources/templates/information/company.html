@@ -1,0 +1,123 @@
+
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<head>
+	<div th:replace="~{fragment :: meta}"></div>
+
+	<div th:replace="~{fragment :: styles}"></div>
+	<!-- Flatpickr -->
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+	<title>店舗詳細</title>
+</head>
+
+<body>
+	<div class="nagoyameshi-wrapper">
+		<!-- ヘッダーの部品化 -->
+		<div th:replace="~{fragment :: header}"></div>
+
+		<main>
+			<div class="container pt-4 pb-5 nagoyameshi-container">
+				<div class="row justify-content-center">
+					<div class="col-xl-5 col-lg-6 col-md-8">
+						<nav class="mb-4" style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
+							<ol class="breadcrumb mb-0">
+								<li class="breadcrumb-item"><a th:href="@{/}">トップ</a></li>
+								<li class="breadcrumb-item active" aria-current="page">会社概要</li>
+							</ol>
+						</nav>
+
+						<h1 class="mb-4 text-center" th:text="会社概要"></h1><br>
+
+
+						
+						<div class="container mb-4">
+							<div class="row pb-2 mb-2 border-bottom">
+								<div class="col-4">
+									<span class="fw-bold">会社名</span>
+								</div>
+
+								<div class="col">
+									<span th:text="株式会社NAGOYAMESHI"></span>
+								</div>
+							</div>
+							
+							<div class="row pb-2 mb-2 border-bottom">
+								<div class="col-4">
+									<span class="fw-bold">代表者</span>
+								</div>
+
+								<div class="col">
+									<span th:text="名古屋太郎"></span>
+								</div>
+							</div>
+
+							<div class="row pb-2 mb-2 border-bottom">
+								<div class="col-4">
+									<span class="fw-bold">設立日</span>
+								</div>
+
+								<div class="col">
+									<span th:text="1993年11月3日"></span>
+								</div>
+							</div>
+							
+							<div class="row pb-2 mb-2 border-bottom">
+								<div class="col-4">
+									<span class="fw-bold">所在地</span>
+								</div>
+
+								<div class="col">
+									<p>101-1010東京都東京都渋谷区恵比寿西２‐１‐３NAGOYAビル3F</p>
+								</div>
+							</div>
+							
+							<div class="row pb-2 mb-2 border-bottom">
+								<div class="col-4">
+									<span class="fw-bold">資本金</span>
+								</div>
+
+								<div class="col">
+									<p>10,000千円</p>
+								</div>
+							</div>
+							<div class="row pb-2 mb-2 border-bottom">
+								<div class="col-4">
+									<span class="fw-bold">従業員数</span>
+								</div>
+
+								<div class="col">
+									<span th:text="800名"></span>
+								</div>
+							</div>
+							
+							<div class="row pb-2 mb-2 border-bottom">
+								<div class="col-4">
+									<span class="fw-bold">事業内容</span>
+								</div>
+
+								<div class="col">
+									<span th:text="飲食店の情報提供・予約サービス"></span>
+								</div>
+							</div>
+							
+						</div>				
+					</div>
+				</div>
+			</div>
+		</main>
+
+		<!-- フッター の部品化-->
+		<div th:replace="~{fragment :: footer}"></div>
+	</div>
+
+	<!-- Bootstrapの部品化 -->
+	<div th:replace="~{fragment :: scripts}"></div>
+
+	<!-- Flatpickr -->
+	<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+	<script src="https://cdn.jsdelivr.net/npm/flatpickr/dist/l10n/ja.js"></script>
+	<script th:src="@{/js/flatpickr.js}"></script>
+</body>
+
+</html>

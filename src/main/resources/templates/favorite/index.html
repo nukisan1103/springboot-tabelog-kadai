@@ -1,0 +1,102 @@
+
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<head>
+	<div th:replace="~{fragment :: meta}"></div>
+
+	<div th:replace="~{fragment :: styles}"></div>
+
+	<title>お気に入り店舗一覧</title>
+</head>
+
+<body>
+	<div class="nagoyameshi-wrapper">
+		<!-- ヘッダー -->
+		<div th:replace="~{fragment :: header}"></div>
+
+		<main>
+			<div class="container nagoyameshi-container pb-5">
+				<div class="row justify-content-center">
+					<div class="col-xxl-9 col-xl-10 col-lg-11">
+						<nav class="my-3" style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
+							<ol class="breadcrumb mb-0">
+								<li class="breadcrumb-item"><a th:href="@{/restaurants/subscriber}">ホーム</a></li>
+								<li class="breadcrumb-item active" aria-current="page">お気に入り店舗一覧</li>
+							</ol>
+						</nav>
+
+						<h1 class="mb-3 text-center">お気に入り店舗一覧</h1><hr class="hr1"><br>
+						
+						<div th:if="${successMessage}" class="alert alert-info">
+							<span th:text="${successMessage}"></span>
+						</div>
+						<table class="table">
+							<thead>
+								<tr>
+									
+									<th scope="col">店舗名</th>															
+									<th scope="col">住所</th>
+									<th scope="col">電話番号</th>
+									
+									<th scope="col"></th>
+
+								</tr>
+							</thead>
+							<tbody>
+								<tr th:each="favorite : ${favoriteRestaurantList}">
+									
+									<td>
+										<a th:href="@{/restaurants/subscriber/__${favorite.getId()}__}"
+											th:text="${favorite.getName()}"></a>											
+									</td>
+									
+									<td th:text="${favorite.getAddress()}"></td>
+									<td th:text="${favorite.getPhone_number()}"></td>
+									<td>
+										<a href="#" class="nagoyameshi-link-danger" data-bs-toggle="modal"
+											th:data-bs-target="${'#deleteFavoriteModal' + favorite.getId()}">削除</a>
+									</td>
+									
+									<!-- 削除用モーダル -->
+									<div class="modal fade" th:id="${'deleteFavoriteModal' + favorite.getId()}"
+										tabindex="-1"
+										th:aria-labelledby="${'deleteFavoriteModalLabel' + favorite.getId()}">
+										<div class="modal-dialog">
+											<div class="modal-content">
+												<div class="modal-header">
+													<h5 class="modal-title"
+														th:id="${'deleteFavoriteModalLabel' + favorite.getId()}"
+														th:text="${favorite.getName() + 'のお気に入り登録を削除してもよろしいですか？'}"></h5>
+													<button type="button" class="btn-close" data-bs-dismiss="modal"
+														aria-label="閉じる"></button>
+												</div>
+												<div class="modal-footer">
+													<form method="post"
+														th:action="@{/restaurants/subscriber/favorite/__${favorite.getId()}__/delete}">
+														<button type="submit"
+															class="btn nagoyameshi-btn-danger text-white shadow-sm">削除</button>
+													</form>
+												</div>
+											</div>
+										</div>
+									</div>
+									
+
+								</tr>
+							</tbody>
+						</table>
+
+					</div>
+				</div>
+			</div>
+		</main>
+
+		<!-- フッター -->
+		<div th:replace="~{fragment :: footer}"></div>
+	</div>
+
+	<div th:replace="~{fragment :: scripts}"></div>
+</body>
+
+</html>

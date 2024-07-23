@@ -1,0 +1,228 @@
+
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<head>
+	<div th:replace="~{fragment :: meta}"></div>
+
+	<div th:replace="~{fragment :: styles}"></div>
+	<!-- Flatpickr -->
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+	<title>店舗詳細</title>
+</head>
+
+<body>
+
+	<div class="nagoyameshi-wrapper">
+		<!-- ヘッダーの部品化 -->
+		<div th:replace="~{fragment :: header}"></div>
+
+		<main>
+			<div class="container pt-4 pb-5 nagoyameshi-container">
+				<div class="row justify-content-center">
+					<div class="col-xl-5 col-lg-6 col-md-8">
+						<nav class="mb-4" style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
+							<ol class="breadcrumb mb-0">
+								<li class="breadcrumb-item"><a th:href="@{/restaurants/subscriber}">店舗一覧</a></li>
+								<li class="breadcrumb-item active" aria-current="page">店舗詳細</li>
+							</ol>
+						</nav>
+
+						<h1 class="mb-4 text-center" th:text="${restaurants.getName()}"></h1>
+
+						<div th:if="${successMessage}" class="alert alert-info">
+							<span th:text="${successMessage}"></span>
+						</div>
+						<div th:if="${errorMessage}" class="alert alert-danger">
+							<span th:text="${errorMessage}"></span>
+						</div>
+
+						<div class="d-flex justify-content-end align-items-end mb-3">
+							<div class="container">
+								<div class="row">
+									<div class="col-5">
+										<a th:href="@{favorite/__${restaurants.getId()}__/regist}">お気に入り登録</a>
+									</div>
+									<div class="col-2"></div>
+									<div class="col">
+										<a th:href="@{/__${restaurants.getId()}__/review/show}"> 全てのレビューを閲覧する</a>
+										<br>	<a th:href="@{/__${restaurants.getId()}__/review}">レビューを投稿する</a>
+									</div>
+								
+								</div>
+							</div>
+						</div>
+
+
+						<div class="mb-3">
+							<img th:if="${restaurants.getImage_name()}"
+								th:src="@{/storage/__${restaurants.getImage_name()}__}" class="w-100" alt="店舗画像">
+							<img th:unless="${restaurants.getImage_name()}" th:src="@{/images/noImage.png}"
+								class="w-100" alt="NO IMAGE">
+						</div>
+
+
+						<div class="container mt-5">
+							<!-- row→行に与えるクラス -->
+							<div class="row">
+								<!-- colは列を表すクラスでグリッド数(全12ライン)を指定することで表示幅の配分を調整できる。 -->
+								<div class="col-md-8">
+									<div class="form-container">
+
+										<div class="container mb-4">
+											<div class="row pb-2 mb-2 border-bottom">
+												<div class="col-4">
+													<span class="fw-bold">ID</span>
+												</div>
+
+												<div class="col">
+													<span th:text="${restaurants.getId()}"></span>
+												</div>
+											</div>
+
+											<div class="row pb-2 mb-2 border-bottom">
+												<div class="col-4">
+													<span class="fw-bold">店舗名</span>
+												</div>
+
+												<div class="col">
+													<span th:text="${restaurants.getName()}"></span>
+												</div>
+											</div>
+
+											<div class="row pb-2 mb-2 border-bottom">
+												<div class="col-4">
+													<span class="fw-bold">説明</span>
+												</div>
+
+												<div class="col">
+													<span class="nagoyameshi-pre-wrap"
+														th:text="${restaurants.getDescription()}"></span>
+												</div>
+											</div>
+
+											<div class="row pb-2 mb-2 border-bottom">
+												<div class="col-4">
+													<span class="fw-bold">営業時間</span>
+												</div>
+
+												<div class="col">
+													<span class="nagoyameshi-pre-wrap"
+														th:text="${restaurants.getOpening_time()} + '~' + ${restaurants.getClosing_time()}">
+													</span>
+												</div>
+											</div>
+
+											<div class="row pb-2 mb-2 border-bottom">
+												<div class="col-4">
+													<span class="fw-bold">定員</span>
+												</div>
+
+												<div class="col">
+													<span th:text="${restaurants.getCapacity() + '人'}"></span>
+												</div>
+											</div>
+
+											<div class="row pb-2 mb-2 border-bottom">
+												<div class="col-4">
+													<span class="fw-bold">定休日</span>
+												</div>
+
+												<div class="col">
+													<span th:text="${restaurants.getRegular_holiday()}"></span>
+												</div>
+											</div>
+
+											<div class="row pb-2 mb-2 border-bottom">
+												<div class="col-4">
+													<span class="fw-bold">住所</span>
+												</div>
+
+												<div class="col">
+													<span th:text="${restaurants.getAddress()}"></span>
+												</div>
+											</div>
+
+											<div class="row pb-2 mb-2 border-bottom">
+												<div class="col-4">
+													<span class="fw-bold">電話番号</span>
+												</div>
+
+												<div class="col">
+													<span th:text="${restaurants.getPhone_number()}"></span>
+												</div>
+											</div>
+										</div>
+
+									</div>
+								</div>
+
+
+								<div sec:authorize="hasRole('ROLE_SUBSCRIBER')"class="col-lg-4 px-0 ps-lg-4 mb-4">
+									<h4>予約フォーム</h4>
+									<div class="card">
+										<div class="card-body">
+											<form method="get"
+												th:action="@{/restaurants/__${restaurants.getId()}__/reservations/input}"
+												th:object="${reservationInputForm}">
+												<div class="form-group mb-2">
+													<label for="reservationDate"
+														class="col-form-label text-md-left fw-bold">予約日</label>
+													<div th:if="${#fields.hasErrors('reservationDate')}"
+														class="text-danger small mb-2" th:errors="*{reservationDate}">
+													</div>
+													<input type="date" class="form-control"
+														th:field="*{reservationDate}">
+												</div>
+
+												<div class="form-group mb-4">
+													<label for="reservationTime"
+														class="col-form-label text-md-left fw-bold">時間</label>
+													<div th:if="${#fields.hasErrors('reservationTime')}"
+														class="text-danger small mb-2" th:errors="*{reservationTime}">
+													</div>
+													<input type="time" step="30" class="form-control"
+														th:field="*{reservationTime}">
+
+												</div>
+
+												<div class="form-group mb-4">
+													<label for="numberOfPeople"
+														class="col-form-label text-md-left fw-bold">人数</label>
+													<div th:if="${#fields.hasErrors('numberOfPeople')}"
+														class="text-danger small mb-2" th:errors="*{numberOfPeople}">
+													</div>
+													<input type="number" class="form-control"
+														th:field="*{numberOfPeople}" min="1">
+												</div>
+
+												<div class="form-group">
+													<button type="submit"
+														class="btn text-white shadow-sm mb-3 nagoyameshi-btn">予約する</button>
+												</div>
+											</form>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+		</main>
+
+		<!-- フッター の部品化-->
+		<div th:replace="~{fragment :: footer}"></div>
+	</div>
+
+	<!-- Bootstrapの部品化 -->
+	<div th:replace="~{fragment :: scripts}"></div>
+
+	<!-- Flatpickr -->
+	<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+	<script src="https://cdn.jsdelivr.net/npm/flatpickr/dist/l10n/ja.js"></script>
+	<script th:src="@{/js/flatpickr.js}"></script>
+</body>
+
+</html>

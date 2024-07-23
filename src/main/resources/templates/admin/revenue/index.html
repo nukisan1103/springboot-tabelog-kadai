@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<head>
+	<div th:replace="~{fragment :: meta}"></div>
+
+	<div th:replace="~{fragment :: styles}"></div>
+
+	<title>売上管理</title>
+</head>
+
+<body>
+	<div class="nagoyameshi-wrapper">
+		<!-- ヘッダー -->
+		<div th:replace="~{fragment :: header}"></div>
+
+		<main>
+			<div class="container pt-4 pb-5 nagoyameshi-container">
+				<div class="row justify-content-center">
+					<div class="col-xxl-12 col-xl-10 col-lg-9">
+
+						<h1 class="mb-4 text-center">売上表</h1>
+						<hr class="hr1"><br>
+						<h3>総売上：<span th:text="${totalRevenue}"></span>円</h3>
+						<br>
+						<hr class="hr1"><br>
+						<form method="get" th:action="@{/admin/revenue/dateSearch}">
+							<div class="form-group mb-2">
+								<label for="selectPeriod" class="col-form-label text-md-left fw-bold">
+									期間指定（選択した年月までの売上を算出）							
+								</label>
+								<input type="month" class="form-control" name="period"onchange="submit(this.form)">
+							</div>
+						</form>
+
+							<table class="table">
+								<thead>
+									<tr>
+										<th scope="col">会員名</th>
+										<th scope="col">総支払額</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr th:each="revenueInfo : ${revenueInfo}">
+
+										<td th:text="${revenueInfo.key}"></td>
+										<td th:text="${revenueInfo.value}"></td>
+
+									</tr>
+								</tbody>
+							</table>
+					</div>
+				</div>
+			</div>
+		</main>
+
+		<!-- フッター -->
+		<div th:replace="~{fragment :: footer}"></div>
+	</div>
+
+	<div th:replace="~{fragment :: scripts}"></div>
+</body>
+
+</html>

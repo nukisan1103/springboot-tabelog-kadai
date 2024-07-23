@@ -1,0 +1,72 @@
+
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org">
+
+<head>
+	<div th:replace="~{fragment :: meta}"></div>
+
+	<div th:replace="~{fragment :: styles}"></div>
+
+	<title>レビュー編集</title>
+</head>
+
+<body>
+	<div class="nagoyameshi-wrapper">
+		<!-- ヘッダー -->
+		<div th:replace="~{fragment :: header}"></div>
+
+		<main>
+			<div class="container pt-4 pb-5 nagoyameshi-container">
+				<div class="row justify-content-center">
+					<div class="col-xl-5 col-lg-6 col-md-8">
+						
+
+						<h1 class="mb-4 text-center">レビュー編集</h1>
+
+						<form method="post" th:action="@{/__${reviewId.getId()}__/review/update}"
+							th:object="${reviewEditForm}" enctype="multipart/form-data">
+							
+							
+
+							<div class="form-group row mb-3">
+								<div class="col-md-4">
+									<label for="score" class="col-form-label text-md-left fw-bold">スコア</label>
+								</div>
+								<div class="col-md-8">
+									<div th:if="${#fields.hasErrors('score')}" class="text-danger small mb-2"
+										th:errors="*{score}"></div>
+									<input type="number" min="1" max="5" "form-control" th:field="*{score}" autofocus>
+								</div>
+							</div>
+
+							<div class="form-group row mb-3">
+								<div class="col-md-4">
+									<label for="sentense"
+										class="col-form-label text-md-left fw-bold">レビュー内容</label>
+								</div>
+								<div class="col-md-8">
+									<div th:if="${#fields.hasErrors('sentense')}"
+										class="text-danger small mb-2" th:errors="*{sentense}"></div>
+									<textarea class="form-control" th:field="*{sentense}" cols="30"
+										rows="5"></textarea>
+								</div>
+							</div>						
+
+							<div class="form-group d-flex justify-content-center my-4">
+								<button type="submit" class="btn text-white shadow-sm w-50 nagoyameshi-btn">更新</button>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</main>
+
+		<!-- フッター -->
+		<div th:replace="~{fragment :: footer}"></div>
+	</div>
+
+	<div th:replace="~{fragment :: scripts}"></div>
+	<script th:src="@{/js/preview.js}"></script>
+</body>
+
+</html>

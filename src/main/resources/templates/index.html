@@ -1,0 +1,194 @@
+
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<head>
+
+	<div th:replace="~{fragment :: meta}"></div>
+
+	<div th:replace="~{fragment :: styles}"></div>
+
+	<title>NAGOYA MESHI</title>
+</head>
+
+<body>
+
+	<div class="nagoyameshi-wrapper">
+		<!-- ヘッダー -->
+		<div th:replace="~{fragment :: header}"></div>
+
+		<main>
+			<div class="container pt-4 pb-5 nagoyameshi-container">
+				<div th:if="${param.loggedIn}" class="alert alert-info">
+					ログインしました。
+				</div>
+
+				<div th:if="${param.loggedOut}" class="alert alert-info">
+					ログアウトしました。
+				</div>
+				<div th:if="${successMessage}" class="alert alert-info">
+					<span th:text="${successMessage}"></span>
+				</div>
+				<div th:if="${errorMessage}" class="alert alert-info">
+					<span th:text="${errorMessage}"></span>
+				</div>
+			</div>
+			<!--画像をスライドショー-->
+			<div class="container div-color wide-full">
+				<div class="row">
+					<div class="col">
+						<h4 class="tategaki1">数々の<b>絶品</b>を</h4><br>
+						<h4 class="tategaki2"><ruby>堪能<rt>あじわい</rt></ruby>し尽くそう。</h4>
+					</div>
+
+					<div class="col-md-8 slide-container">
+						<div class="slide-wrapper">
+							<img class="slide" src="storage/maruya.jpg" alt="スライド1">
+							<img class="slide" src="storage/atsuta.jpg" alt="スライド2">
+							<img class="slide" src="storage/yadakatsu.jpg" alt="スライド3">
+							<img class="slide" src="storage/chika.jpg" alt="スライド4">
+						</div>
+						<div class="slide-wrapper">
+							<img class="slide" src="storage/maruya.jpg" alt="スライド1">
+							<img class="slide" src="storage/atsuta.jpg" alt="スライド2">
+							<img class="slide" src="storage/yadakatsu.jpg" alt="スライド3">
+							<img class="slide" src="storage/chika.jpg" alt="スライド4">
+						</div>
+						<div class="slide-wrapper">
+							<img class="slide" src="storage/maruya.jpg" alt="スライド1">
+							<img class="slide" src="storage/atsuta.jpg" alt="スライド2">
+							<img class="slide" src="storage/yadakatsu.jpg" alt="スライド3">
+							<img class="slide" src="storage/chika.jpg" alt="スライド4">
+						</div>
+					</div>
+					<div class="col">
+						<h4 class="tategaki1"><b class="nagoyaColor">名古屋</b>にある名店で、</h4>
+					</div>
+				</div>
+			</div>
+			<hr class="hr1">
+			<!--店舗検索-->
+			<div class="container pt-4 pb-5 nagoyameshi-container">
+				<div class="font">
+					<h5>店舗名で検索する</h5>
+				</div>
+				<div class="d-flex justify-content-between align-items-end flex-wrap">
+					<form method="get" th:action="@{/top/search}" class="mb-3">
+						<div class="input-group">
+							<input type="text" class="form-control" name="keyword" th:value="${keyword}"
+								placeholder="店舗名orキーワード">
+							<button type="submit" class="btn text-white shadow-sm nagoyameshi-btn">検索</button>
+						</div>
+					</form>
+				</div><br>
+				<hr class="hr1">
+				<!-- ⇩評価の高い順に表示する -->
+				<div class="font">
+					<h4>評価の高い店舗</h4>
+				</div><br>
+
+				<div class="container">
+					<div class="row">
+						<!--上位六位までを#numbers.sequenceで表示-->
+						<div class="col-md-2" th:each="	i : ${#numbers.sequence(1,6)}">
+							<img th:if="${scoreSort[i-1].key.restaurant.image_name}"
+								th:src="@{/storage/__${scoreSort[i-1].key.restaurant.image_name}__}" class="w-100" alt="店舗画像">
+							<img th:unless="${scoreSort[i-1].key.restaurant.image_name}" th:src="@{/images/noImage.png}"
+								class="w-100" alt="NO IMAGE">
+							<div class="row pb-2 mb-2 border-bottom">
+								<div class="col-4">
+									<span class="fw-bold">店舗名</span>
+								</div>
+								<div class="col">
+									<a th:href="@{/top/__${scoreSort[i-1].key.restaurant.name}__}"
+										th:text="${scoreSort[i-1].key.restaurant.name}"></a>
+								</div>
+							</div>
+							<div class="row pb-2 mb-2 border-bottom">
+								<div class="col-4">
+									<span class="fw-bold">スコア</span>
+								</div>
+								<div class="col">
+									<span th:text="${scoreSort[i-1].key.score}"></span>
+								</div>
+							</div>
+							<div class="row pb-2 mb-2 border-bottom">
+								<div class="col-4">
+									<span class="fw-bold">説明</span>
+								</div>
+								<div class="col">
+									<span th:text="${scoreSort[i-1].key.restaurant.description}"></span>
+								</div>
+							</div>
+
+						</div>
+					</div>
+				</div>
+				<!-- ↑評価の高い順に表示する -->
+
+				<br><br><br>
+				<hr class="hr1"><!--横線-->
+
+				<!--  新着順に表示する  -->
+				<div class="font">
+					<h4>新着順</h4>
+				</div><br>
+
+				<div class="container">
+					<div class="row">
+						<div class="col-md-2" th:each="restaurants : ${restaurants}">
+							<img th:if="${restaurants.getName()}"
+								th:src="@{/storage/__${restaurants.getImage_name()}__}" class="w-100" alt="店舗画像">
+							<img th:unless="${restaurants.getImage_name()}" th:src="@{/images/noImage.png}"
+								class="w-100" alt="NO IMAGE">
+							<div class="row pb-2 mb-2 border-bottom">
+								<div class="col-4">
+									<span class="fw-bold">店舗名</span>
+								</div>
+								<div class="col">
+									<a th:href="@{/top/__${restaurants.getName()}__}"
+										th:text="${restaurants.getName()}"></a>
+								</div>
+							</div>
+							<div class="row pb-2 mb-2 border-bottom">
+								<div class="col-4">
+									<span class="fw-bold">説明</span>
+								</div>
+								<div class="col">
+									<span th:text="${restaurants.getDescription()}"></span>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<br><br><br>
+				<hr class="hr1"><!--横線-->
+
+				<div class="font">
+					<h4>カテゴリー</h4>
+				</div>
+				<br><br><br>
+
+				<div class="container">
+					<div class="row">
+						<div class="col-md-2" th:each="categories : ${categories}">
+							<div class="row pb-2 mb-2 border-bottom">
+								<div class="col">
+									<a th:href="@{/top/category/__${categories.getCategory()}__}"
+										th:text="${categories.getCategory()}"></a>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+		</main>
+
+		<!-- フッター -->
+		<div th:replace="~{fragment :: footer}"></div>
+	</div>
+
+	<div th:replace="~{fragment :: scripts}"></div>
+</body>
+
+</html>

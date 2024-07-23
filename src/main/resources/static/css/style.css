@@ -1,0 +1,277 @@
+
+html {
+	font-size: 14px;
+}
+
+body {
+	font-family: 'Noto Sans JP', sans-serif;
+}
+
+h1 {
+	font-size: 1.5rem;
+}
+
+a {
+	color: #5196a6;
+	text-decoration: none !important;
+}
+
+a:hover {
+	color: #407784;
+}
+
+footer {
+	width: 100%;
+	height: 60px;
+	position: absolute;
+	bottom: 0;
+	background-color: #f2f0eb;
+}
+
+.font{
+	font-family:arial;
+}
+
+.nagoyameshi-wrapper {
+	min-height: 100vh;
+	position: relative;
+	padding-bottom: 60px;
+	box-sizing: border-box;
+}
+
+.nagoyameshi-navbar {
+	min-height: 60px;
+}
+
+.nagoyameshi-logo {
+	height: 30px;
+}
+
+.nagoyameshi-btn {
+	background-color: #5196a6 !important;
+	transition: 0.1s;
+}
+
+.nagoyameshi-btn:hover {
+	opacity: 0.8;
+}
+
+.nagoyameshi-page-link {
+	color: #5196a6;
+}
+
+.nagoyameshi-page-link:hover {
+	color: #407784;
+}
+
+.nagoyameshi-active {
+	background-color: #5196a6 !important;
+	border-color: #5196a6 !important;
+}
+
+.nagoyameshi-page-link {
+	color: #5196a6;
+}
+
+.nagoyameshi-page-link:hover {
+	color: #407784;
+}
+
+.nagoyameshi-active {
+	background-color: #5196a6 !important;
+	border-color: #5196a6 !important;
+}
+
+.nagoyameshi-dropdown-item:active {
+	background-color: #5196a6;
+}
+
+.nagoyameshi-link-danger {
+	color: #f2594b;
+}
+
+.nagoyameshi-link-danger:hover {
+	color: #a63c3c;
+}
+
+.nagoyameshi-btn-danger {
+	background-color: #f2594b !important;
+	transition: 0.1s;
+}
+
+.nagoyameshi-btn-danger:hover {
+	opacity: 0.8;
+}
+
+
+.slide-container {
+    width: 80%;
+    margin: 50px auto;
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+}
+.slide-wrapper {
+  display: flex;
+  animation: slide-flow 20s infinite linear 1s both;
+}
+.slide{
+  width: 300px;
+  object-fit:cover;
+  border: 1px solid #ddd;
+}
+@keyframes slide-flow {
+     0% {transform: translateX(0);}
+ 100% {transform: translateX(-100%);}
+}
+
+.searchButton{
+	left: 200px;
+	
+}
+
+.field {
+display: flex;
+justify-content: space-around;
+}
+
+.hr1 {
+  position: relative;
+	height: 3px;
+	border-width: 0;
+	background-color: #00bcd4;
+	background-image: -webkit-linear-gradient( 135deg, #FD6585 10%, #0D25B9 100%);
+	background-image: linear-gradient( 135deg, #FD6585 10%, #0D25B9 100%);
+}
+
+.div-color {
+        background-color: #663333;
+    }
+    
+    .wide-full {
+    background: #663333;/* レッド */
+  
+   
+    width: 100vw;/* POINT! */
+}
+
+.tategaki1{
+	font-family:"Yu Gothic", "游ゴシック", YuGothic, "游ゴシック体";
+	color: white;
+	 text-indent: 2em;
+  -ms-writing-mode: tb-rl;
+  writing-mode: vertical-rl;
+}
+.tategaki2{
+	font-family:"Yu Gothic", "游ゴシック", YuGothic, "游ゴシック体";
+	color: white;
+	 text-indent: 4em;
+  -ms-writing-mode: tb-rl;
+  writing-mode: vertical-rl;
+}
+
+.nagoyaColor{
+	color:  #ee7800;
+}
+
+header{
+	background-color: #996600;
+}
+
+p.center{
+
+text-align:center;
+
+}
+
+.center{
+
+text-align:center;
+
+
+}
+
+.upgradePage{
+    text-align: center; 
+    padding: 5px;
+    width: 80%;
+
+}
+
+.background{
+	background-color: #27acd9;
+}
+
+
+.upgradeButton{
+	text-align: center;
+	vertical-align: middle;
+	text-decoration: none;
+	width: 500px;
+	margin: auto;
+	padding: 1rem 4rem;
+	font-weight: bold;
+	border-radius: 0.3rem;
+	border-bottom: 7px solid #0686b2;
+	background: #27acd9;
+	color: #fff;
+}
+
+.withdrawalButton{
+	text-align: center;
+	vertical-align: middle;
+	text-decoration: none;
+	width: 500px;
+	margin: auto;
+	padding: 1rem 4rem;
+	font-weight: bold;
+	border-radius: 0.3rem;
+	border-bottom: 7px solid #FA3932;
+	background: #F00;
+	color: #fff;
+}
+
+
+
+.policy{
+    margin: 20px auto;
+  text-align:center;
+}
+.submit_btnarea {
+    width: 360px;
+    margin: 0 auto;
+}
+.form_btn{
+    background: #005183;
+    border: 1px solid #fff;
+    color: #fff;
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: all .5s ease-out;
+    position: relative;
+}
+ 
+.form_btn:hover{
+    border: 1px solid #005183;
+    background: #fff;
+    color: #005183;
+}
+button[type="submit"][disabled] {
+            background-color: #fff;
+            color: #ccc;
+            border-color: #ccc;
+            cursor: default;
+        }
+     
+    button[type="submit"][disabled]:hover{
+        opacity:1;
+    }
+
+
+@media screen and (min-width: 1400px) {
+	.nagoyameshi-container {
+		max-width: 1200px;
+	}
+}

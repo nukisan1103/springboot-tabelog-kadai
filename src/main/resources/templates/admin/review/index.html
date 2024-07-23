@@ -1,0 +1,161 @@
+
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org">
+<html xmlns:th="https://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<head>
+	<div th:replace="~{fragment :: meta}"></div>
+
+	<div th:replace="~{fragment :: styles}"></div>
+
+	<title>レビュー管理</title>
+</head>
+
+<body>
+	<div class="nagoyameshi-wrapper">
+
+		<!-- ヘッダーの部品化 -->
+		<div th:replace="~{fragment :: header}"></div>
+
+		<main>
+			<div class="container pt-4 pb-5 nagoyameshi-container">
+				<div class="row justify-content-center">
+					<div class="col-xxl-9 col-xl-10 col-lg-11">
+
+						<h1 class="mb-4 text-center">レビュー管理</h1>
+						<div class="container">
+							<div class="row">
+							
+								<div class="col-9">
+									<div class="d-flex justify-content-between align-items-end flex-wrap">
+										<form method="get" th:action="@{/admin/review}"
+											class="mb-3">
+											<div class="d-flex justify-content-between align-items-end flex-wrap">
+												<div class="form-group mb-3">
+
+													<select onchange="submit(this.form)" class="form-control w-170" 
+														name="keyword" th:value="*{name}">
+														<option value="" disabled selected>-------------  店舗を選択  -----------</option>
+														<option th:each="restaurants : ${restaurantList}"
+															th:value="${restaurants.getName()}"
+															th:text="${restaurants.getName()}"></option>
+													</select>
+												</div>
+											</div>
+										</form>
+									</div>
+								</div>
+								<div class="col">
+									<div class="d-flex justify-content-between align-items-end flex-wrap">
+										<form method="get" th:action="@{/admin/review/userSearch}"
+											class="mb-3">
+											<div class="d-flex justify-content-between align-items-end flex-wrap">
+												<div class="form-group mb-3">
+
+													<select onchange="submit(this.form)" class="form-control w-170" 
+														name="userKeyword" th:value="*{email}">
+														<option value="" disabled selected>-----------  会員検索  -----------</option>
+														<option th:each="users : ${userList}"
+															th:value="${users.getEmail()}"
+															th:text="${users.getEmail()}"></option>
+													</select>
+												</div>
+											</div>
+										</form>
+									</div>
+								</div>
+							</div>
+						</div>
+
+						<div th:if="${successMessage}" class="alert alert-info">
+							<span th:text="${successMessage}"></span>
+						</div>
+						<hr class="hr1">
+
+						<table class="table">
+							<thead>
+								<tr>
+									<th scope="col">店舗名</th>
+									<th scope="col">投稿者</th>
+									<th scope="col">レビュー内容</th>
+									
+									<th scope="col"></th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr th:each="reviewList : ${reviewList}">
+									<td th:text="${reviewList.getRestaurant().getName()}"></td>
+									<td th:text="${reviewList.getUser().getName()}"></td>
+									<td th:text="${reviewList.getSentense()}"></td>
+									<td>
+									<a href="#" class="nagoyameshi-link-danger" data-bs-toggle="modal"
+											th:data-bs-target="${'#deleteReviewModal' + reviewList.getId()}">削除</a>
+									</td>
+									<!-- 削除用モーダル -->
+									<div class="modal fade" th:id="${'deleteReviewModal' + reviewList.getId()}"
+										tabindex="-1"
+										th:aria-labelledby="${'deleteReviewModalLabel' + reviewList.getId()}">
+										<div class="modal-dialog">
+											<div class="modal-content">
+												<div class="modal-header">
+													<h5 class="modal-title"
+														th:id="${'deleteReviewModalLabel' + reviewList.getId()}"
+														th:text="選択したレビューを削除してもよろしいですか？"></h5>
+													<button type="button" class="btn-close" data-bs-dismiss="modal"
+														aria-label="閉じる"></button>
+												</div>
+												<div class="modal-footer">
+													<form method="post"
+														th:action="@{/admin/review/__${reviewList.getId()}__/delete}">
+														<button type="submit"
+															class="btn nagoyameshi-btn-danger text-white shadow-sm">削除</button>
+													</form>
+												</div>
+											</div>
+										</div>
+									</div>
+								</tr>
+								</tr>
+							</tbody>
+						</table>
+						<!-- ページネーション -->
+						<div th:if="${reviewList.getTotalPages() > 1}" class="d-flex justify-content-center">
+							<nav aria-label="民宿一覧ページ">
+								<ul class="pagination">
+									<li class="page-item">
+										<span th:if="${reviewList.isFirst()}" class="page-link disabled">前</span>
+										<a th:unless="${reviewList.isFirst()}"
+											th:href="@{/admin/review(page = ${reviewList.getNumber() - 1}, keyword = ${keyword})}"
+											class="page-link nagoyameshi-page-link">前</a>
+									</li>
+									<li th:each="i : ${#numbers.sequence(0, reviewList.getTotalPages() - 1)}"
+										class="page-item">
+										<span th:if="${i == reviewList.getNumber()}"
+											class="page-link active nagoyameshi-active" th:text="${i + 1}"></span>
+										<a th:unless="${i == reviewList.getNumber()}"
+											th:href="@{/admin/review(page = ${i}, keyword = ${keyword})}"
+											class="page-link nagoyameshi-page-link" th:text="${i + 1}"></a>
+									</li>
+									<li class="page-item">
+										<span th:if="${reviewList.isLast()}" class="page-link disabled">次</span>
+										<a th:unless="${reviewList.isLast()}"
+											th:href="@{/admin/review(page = ${reviewList.getNumber() + 1}, keyword = ${keyword})}"
+											class="page-link nagoyameshi-page-link">次</a>
+									</li>
+								</ul>
+							</nav>
+						</div>
+					</div>
+				</div>
+			</div>
+		</main>
+
+		<!-- フッターの部品化 -->
+		<div th:replace="~{fragment :: footer}"></div>
+	</div>
+
+	<!-- Bootstrapの部品化 -->
+	<div th:replace="~{fragment :: scripts}"></div>
+</body>
+
+</html>

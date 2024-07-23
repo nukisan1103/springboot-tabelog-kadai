@@ -1,0 +1,92 @@
+
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<head>
+
+	<div th:replace="~{fragment :: meta}"></div>
+
+	<div th:replace="~{fragment :: styles}"></div>
+
+	<title>NAGOYA MESHI</title>
+</head>
+
+<body>
+
+	<div class="nagoyameshi-wrapper">
+		<!-- ヘッダー -->
+		<div th:replace="~{fragment :: header}"></div>
+
+		<main>
+			<div class="container pt-4 pb-5 mt-3 nagoyameshi-container">
+				<div class="row justify-content-center">
+					<div class="col-xxl-9 col-xl-10 col-lg-11">
+						<nav class="mb-4" style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
+							<ol class="breadcrumb mb-0">
+								<li class="breadcrumb-item"><a th:href="@{/admin/restaurants}">店舗一覧</a></li>
+								
+								<li class="breadcrumb-item active" aria-current="page">カテゴリ一覧</li>
+							</ol>
+						</nav>
+						<h1 class="mb-4 text-center mt-3">カテゴリ一覧</h1>
+
+						<div th:if="${successMessage}" class="alert alert-info">
+							<span th:text="${successMessage}"></span>
+						</div>
+
+						<br>
+						<hr class="hr1">
+
+						<div class="container">
+							<div class="row">
+								<!--<form method="get" th:action="@{/restaurants/subscriber/categorySearch}"class="mb-3">-->
+								<div class="col-md-2" th:each="categories : ${categories}">
+									<div class="row pb-2 mb-2 border-bottom">
+										<div class="col">
+											<p th:text="${categories.getCategory()}"></p>
+											<a href="#" class="nagoyameshi-link-danger" data-bs-toggle="modal"
+												th:data-bs-target="${'#deleteCategoryModal' + categories.getId()}">削除</a>
+											<!-- 削除用モーダル -->
+											<div class="modal fade"
+												th:id="${'deleteCategoryModal' + categories.getId()}" tabindex="-1"
+												th:aria-labelledby="${'deleteCategoryModalLabel' + categories.getId()}">
+												<div class="modal-dialog">
+													<div class="modal-content">
+														<div class="modal-header">
+															<h5 class="modal-title"
+																th:id="${'deleteCategoryModalLabel' + categories.getId()}"
+																th:text="${categories.getCategory() + 'を削除してもよろしいですか？'}">
+															</h5>
+															<button type="button" class="btn-close"
+																data-bs-dismiss="modal" aria-label="閉じる"></button>
+														</div>
+														<div class="modal-footer">
+															<form method="post"
+																th:action="@{/admin/category/__${categories.getId()}__/delete}">
+																<button type="submit"
+																	class="btn nagoyameshi-btn-danger text-white shadow-sm">削除</button>
+															</form>
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+
+
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</main>
+
+		<!-- フッター -->
+		<div th:replace="~{fragment :: footer}"></div>
+	</div>
+
+	<div th:replace="~{fragment :: scripts}"></div>
+</body>
+
+</html>
