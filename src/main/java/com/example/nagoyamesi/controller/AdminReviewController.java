@@ -71,7 +71,9 @@ public class AdminReviewController {
    		 ,@RequestParam(name = "keyword", required = false) String keyword
    		 ,Model model) {
 	User user = userRepository.findByEmail(userSearch);
+   //セレクトボックスで店舗検索できるように店舗データを取得する
    List<Restaurant> restaurantList = restaurantRepository.findAll();
+   //セレクトボックスで店舗検索できるように会員データを取得する
    List<User> userList = userRepository.findAll();
    Page<Review> reviewList;
    

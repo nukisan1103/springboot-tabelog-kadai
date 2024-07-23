@@ -74,7 +74,7 @@ public class UserController {
     }    
     @GetMapping("/upgrade") //無料会員を有料会員にアップグレードする
     public String upgrade(Model model,HttpServletRequest httpServletRequest) {         
-       
+       //Stripe接続用にsessionIdを取得
     	String sessionId = stripeService.createStripeSession(httpServletRequest);
     	
    	 model.addAttribute("sessionId", sessionId);

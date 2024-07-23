@@ -157,7 +157,7 @@ public class AuthController {
         return "auth/passChanging";  
     }    
     
-    @PostMapping("/passwordChange/{id}")
+    @PostMapping("/passwordChange/{id}")//会員が新しいパスワードを入力した後の処理
     public String passResetComplete(Model model,@PathVariable(name = "id") Integer id,
     		@ModelAttribute @Validated  PasswordResetInputForm  passwordResetInputForm, BindingResult bindingResult, 
     		RedirectAttributes redirectAttributes) {
@@ -183,14 +183,14 @@ public class AuthController {
        return "redirect:/";
    }
     
-    @GetMapping("/withdrawal")
+    @GetMapping("/withdrawal")//会員退会ページ遷移用
     public String withdrawal() {        
        
         return "auth/withdrawal";
     }  
     
     
-    @GetMapping("/withdrawal/complete")
+    @GetMapping("/withdrawal/complete")//退会完了処理
     public String withdrawalComplete(@AuthenticationPrincipal UserDetailsImpl userDetailsImpl
     		,RedirectAttributes redirectAttributes) {        
     	

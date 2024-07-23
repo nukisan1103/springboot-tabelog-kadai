@@ -80,7 +80,8 @@ public class AdminRestaurantController {
 	//管理者用：店舗一覧の店舗新規登録ボタン押下後の処理。
 	@GetMapping("/restaurantRegister")
 	public String restaurantRegister(Model model) {
-
+		
+		//店舗登録画面で、カテゴリを選択できるようにカテゴリリストを取得する
 		List<Category> categories;
 		categories = categoryRepository.findAll();
 

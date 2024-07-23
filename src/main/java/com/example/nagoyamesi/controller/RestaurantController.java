@@ -69,7 +69,7 @@ public class RestaurantController {
 	}
 	
 
-	
+	//店舗一覧ページでカテゴリ検索を実施した際の処理
 	@GetMapping("/categorySearch")
 	public String categorySearch(Model model,
 			@PageableDefault(page = 0, size = 10, sort = "id", direction = Direction.ASC) Pageable pageable,
@@ -81,14 +81,13 @@ public class RestaurantController {
 		List<Category> categories = categoryRepository.findAll();
 					
 		if (category != null && !category.isEmpty()) {
-
+		//完全一致でなくとも、検索文字が含まれていればリストに追加
 		restaurants = restaurantRepository.findByCategoryName(category, pageable);
 
 		} else {
 
 			restaurants = restaurantRepository.findAll(pageable);
 			
-
 		}
 		
 		model.addAttribute("categories", categories);

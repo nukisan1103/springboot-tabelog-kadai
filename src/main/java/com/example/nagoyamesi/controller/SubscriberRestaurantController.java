@@ -62,7 +62,7 @@ public class SubscriberRestaurantController {
 		return "subscriber/restaurants/index";
 	}
 	
-	@GetMapping("/categorySearch")
+	@GetMapping("/categorySearch") ////有料会員用店舗一覧ページでカテゴリ検索を実施した際の処理
 	public String categorySearch(Model model,
 			@PageableDefault(page = 0, size = 10, sort = "id", direction = Direction.ASC) Pageable pageable,
 			@RequestParam(name = "keyword", required = false) String keyword,
@@ -80,7 +80,6 @@ public class SubscriberRestaurantController {
 
 			restaurants = restaurantRepository.findAll(pageable);
 			
-
 		}
 		
 		model.addAttribute("categories", categories);

@@ -27,10 +27,8 @@ import jakarta.transaction.Transactional;
 public class FavoriteController {
 	
  private final RestaurantRepository restaurantRepository;
-
  private final FavoriteService favoriteService;
 
-     
      public FavoriteController(RestaurantRepository restaurantRepository,FavoriteService favoriteService) {        
          
          this.restaurantRepository = restaurantRepository;
@@ -38,7 +36,7 @@ public class FavoriteController {
        
      }    
 
-     @GetMapping("/index")
+     @GetMapping("/index")//有料会員用お気に入り店舗一覧ページへ遷移
      public String getFavoriteRestaurants(@AuthenticationPrincipal UserDetailsImpl userDetailsImpl,Model model) {
     	 int userData = userDetailsImpl.getUser().getId();   
       List<Restaurant> favoriteRestaurantList =  favoriteService.getFavoriteRestaurantsByUserId(userData);

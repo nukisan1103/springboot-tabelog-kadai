@@ -44,7 +44,7 @@ public class ReservationController {
 		this.reservationService = reservationService;
 	}
 
-	@GetMapping("/reservations")
+	@GetMapping("/reservations") //会員の予約一覧ページへ遷移
 	public String index(@AuthenticationPrincipal UserDetailsImpl userDetailsImpl,
 			@PageableDefault(page = 0, size = 10, sort = "id", direction = Direction.ASC) Pageable pageable,
 			Model model) {
@@ -111,7 +111,7 @@ public class ReservationController {
 		
 			if(!reservationService.capaCheck(timeSearch,numberOfPeople,capacity)) {
 				FieldError fieldError = new FieldError(bindingResult.getObjectName(), "reservationTime",
-						"その時間は満席で現在予約できません。");
+						"その時間は満席、もしくは定員超えで現在予約できません。");
 				bindingResult.addError(fieldError);
 			}
 			if (bindingResult.hasErrors()) {
@@ -154,16 +154,11 @@ public class ReservationController {
 							"営業時間外です。");
 					bindingResult.addError(fieldError);
 				}
-				//				}if (!(reservationService.twoHoursLaterCheck(mytime, twoHoursLater))) {
-				//					FieldError fieldError = new FieldError(bindingResult.getObjectName(), "reservationTime",
-				//							"予約は二時間後から可能です。");
-				//					bindingResult.addError(fieldError);
-				//				}
+				
 			}
 		}
-
-
-		if (bindingResult.hasErrors()) {
+		
+		if (bindingResult.hasErrors()) { //bindingResultにエラーが格納されていた場合はエラー文を返す
 			model.addAttribute("restaurants", restaurant);
 			model.addAttribute("errorMessage", "予約内容に不備があります。");
 			return "subscriber/restaurants/show";
@@ -174,14 +169,15 @@ public class ReservationController {
 		return "redirect:/restaurants/{id}/reservations/confirm";
 	}
 
-	@GetMapping("/restaurants/{id}/reservations/confirm")
+	@GetMapping("/restaurants/{id}/reservations/confirm") //予約確認ページ遷移用
 	public String confirm(@PathVariable(name = "id") Integer id,
 			@ModelAttribute ReservationInputForm reservationInputForm,
 			@AuthenticationPrincipal UserDetailsImpl userDetailsImpl,
 			Model model) {
 		Restaurant restaurant = restaurantRepository.getReferenceById(id);
 		User user = userDetailsImpl.getUser();
-
+		
+		//予約確認用に、登録フォーム（reservationInputForm）に入力した内容を詰め替える
 		ReservationRegisterForm reservationRegisterForm = new ReservationRegisterForm(restaurant.getId(), user.getId(),
 				reservationInputForm.getReservationDate(), reservationInputForm.getReservationTime(),
 				reservationInputForm.getNumberOfPeople());
@@ -192,19 +188,18 @@ public class ReservationController {
 		return "reservation/confirm";
 	}
 
-	@PostMapping("/restaurants/{id}/reservations/create")
+	@PostMapping("/restaurants/{id}/reservations/create") //予約完了処理
 	public String create(@ModelAttribute ReservationRegisterForm reservationRegisterForm) {
 		reservationService.create(reservationRegisterForm);
 
 		return "redirect:/reservations?reserved";
 	}
 	
-	@PostMapping("/reservation/{id}/cancel")
+	@PostMapping("/reservation/{id}/cancel") //予約キャンセル処理実施
 	public String reservationCancel(@PathVariable(name = "id") Integer id, RedirectAttributes redirectAttributes) {
 		
 		reservationRepository.deleteById(id);
-		
-		
+			
 		redirectAttributes.addFlashAttribute("successMessage", "予約をキャンセルしました。");
 		return "redirect:/reservations";
 	}

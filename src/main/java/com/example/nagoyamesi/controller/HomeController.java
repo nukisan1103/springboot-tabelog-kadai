@@ -59,7 +59,7 @@ public class HomeController {
 				score += r.getScore();
 
 			}
-			if (score != 0) { //スコアは1点〜5点なので、0点は即ちレビューのない店舗なのでパスする。
+			if (score != 0) { 
 
 				//店舗毎に算出されたトータルスコアをレビュー数で割り平均スコアを算出
 				double avg = (double) score / review.size();
@@ -115,7 +115,6 @@ public class HomeController {
 		}
 
 		return "top/search";
-
 	}
 
 	//会社概要ページへ
@@ -126,7 +125,6 @@ public class HomeController {
 		model.addAttribute("restaurants", restaurants);
 
 		return "top/search";
-
 	}
 
 	//利用規約ページへ
@@ -134,7 +132,6 @@ public class HomeController {
 	public String informationPage() {
 
 		return "information/company";
-
 	}
 
 	//会社情報ページへ
@@ -142,6 +139,5 @@ public class HomeController {
 	public String terms() {
 
 		return "information/term";
-
 	}
 }

@@ -61,6 +61,7 @@ public class ReviewController {
     		 @PathVariable(name = "id") Integer id,Model model,RedirectAttributes redirectAttributes) {
     	 User user = userDetailsImpl.getUser();
     	 Restaurant restaurants = restaurantRepository.getReferenceById(id);
+    	 //ログイン中のユーザーが、レビュー投稿しようとしている店舗に、過去投稿していないかをチェック
     	 Review review = reviewRepository.findByUserAndRestaurant(user, restaurants);
     	 
     	 if(review != null) {
@@ -84,11 +85,8 @@ public class ReviewController {
     	 
     	 reviewPage = reviewRepository.findByRestaurant(restaurants, pageable);
     	 
-    	
     	 model.addAttribute("reviewPage",reviewPage);
-    	 
-    
-    	
+    	    	
          return "review/show";
     	 
      }
@@ -143,11 +141,7 @@ public class ReviewController {
      @PostMapping("/{id}/review/update")
      public String reviewUpdate(@PathVariable(name = "id") Integer id,Model model,
     		 @ModelAttribute @Validated ReviewEditForm reviewEditForm,
-    		 RedirectAttributes redirectAttributes,BindingResult bindingResult) {
-    	 
-    	 if (bindingResult.hasErrors()) {
- 			return "review/edit";
- 		}
+    		 RedirectAttributes redirectAttributes) {
     	 
     	 reviewService.update(id,reviewEditForm);
     	 redirectAttributes.addFlashAttribute("successMessage", "レビューを更新しました。");   
