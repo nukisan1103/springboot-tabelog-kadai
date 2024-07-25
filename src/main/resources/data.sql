@@ -1,5 +1,6 @@
 
 
+
 --restaurantsテーブル--
 INSERT IGNORE INTO restaurants (restaurant_id, category_name, name, image_name, restaurant_description, lowest_price, highest_price, opening_time, closing_time, phone_number, address, regular_holiday, capacity) VALUES (1, 'うなぎ料理', 'まるや本店', 'maruya.jpg', 'うなぎの蒲焼のセットメニューや寿司を楽しめるモダンな店。テイクアウトもある。', 1000, 6000, '10:00:00', '22:00:00', '090-0000-0000', '名古屋', '毎週金曜日', 50);
 INSERT IGNORE INTO restaurants (restaurant_id, category_name, name, image_name, restaurant_description, lowest_price, highest_price, opening_time, closing_time, phone_number, address, regular_holiday, capacity) VALUES (2, '和風料理', 'あつた蓬莱店', 'atsuta.jpg', '落ち着いた和風で長年の歴史を持つ老舗の鰻屋で、創業当時より継ぎ足されている秘伝のタレや備長炭で焼いたこだわりの鰻を頂ける。。', 1000, 6000, '10:00:00', '22:00:00', '090-0000-0000', '名古屋', '毎週金曜日', 50);
