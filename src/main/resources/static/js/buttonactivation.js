@@ -1,10 +1,15 @@
 $(function() {
-    $('#regist').attr('disabled', 'disabled'); 
-        $('#chkbox').click(function() { 
-        if ( $(this).prop('checked') == false ) {　
-            $('#regist').attr('disabled', 'disabled');　
-        } else {
-            $('#regist').removeAttr('disabled');　
-        }
+    updateButtonState(); // 初期状態の設定
+
+    $('#chkbox').click(function() {
+        updateButtonState();
     });
+
+	function updateButtonState() {
+		if ($('#chkbox').prop('checked')) {
+			$('#regist').removeClass('disabled');
+		} else {
+			$('#regist').addClass('disabled');
+		}
+	}
 });

@@ -1,4 +1,3 @@
-
 html {
 	font-size: 14px;
 }
@@ -28,8 +27,8 @@ footer {
 	background-color: #f2f0eb;
 }
 
-.font{
-	font-family:arial;
+.font {
+	font-family: arial;
 }
 
 .nagoyameshi-wrapper {
@@ -105,105 +104,116 @@ footer {
 
 
 .slide-container {
-    width: 80%;
-    margin: 50px auto;
-    display: flex;
-    align-items: center;
-    overflow: hidden;
-}
-.slide-wrapper {
-  display: flex;
-  animation: slide-flow 20s infinite linear 1s both;
-}
-.slide{
-  width: 300px;
-  object-fit:cover;
-  border: 1px solid #ddd;
-}
-@keyframes slide-flow {
-     0% {transform: translateX(0);}
- 100% {transform: translateX(-100%);}
+	width: 80%;
+	margin: 50px auto;
+	display: flex;
+	align-items: center;
+	overflow: hidden;
 }
 
-.searchButton{
+.slide-wrapper {
+	display: flex;
+	animation: slide-flow 20s infinite linear 1s both;
+}
+
+.slide {
+	width: 300px;
+	object-fit: cover;
+	border: 1px solid #ddd;
+}
+
+@keyframes slide-flow {
+	0% {
+		transform: translateX(0);
+	}
+
+	100% {
+		transform: translateX(-100%);
+	}
+}
+
+.searchButton {
 	left: 200px;
-	
+
 }
 
 .field {
-display: flex;
-justify-content: space-around;
+	display: flex;
+	justify-content: space-around;
 }
 
 .hr1 {
-  position: relative;
+	position: relative;
 	height: 3px;
 	border-width: 0;
 	background-color: #00bcd4;
-	background-image: -webkit-linear-gradient( 135deg, #FD6585 10%, #0D25B9 100%);
-	background-image: linear-gradient( 135deg, #FD6585 10%, #0D25B9 100%);
+	background-image: -webkit-linear-gradient(135deg, #FD6585 10%, #0D25B9 100%);
+	background-image: linear-gradient(135deg, #FD6585 10%, #0D25B9 100%);
 }
 
 .div-color {
-        background-color: #663333;
-    }
-    
-    .wide-full {
-    background: #663333;/* レッド */
-  
-   
-    width: 100vw;/* POINT! */
+	background-color: #663333;
 }
 
-.tategaki1{
-	font-family:"Yu Gothic", "游ゴシック", YuGothic, "游ゴシック体";
+.wide-full {
+	background: #663333;
+	/* レッド */
+
+
+	width: 100vw;
+	/* POINT! */
+}
+
+.tategaki1 {
+	font-family: "Yu Gothic", "游ゴシック", YuGothic, "游ゴシック体";
 	color: white;
-	 text-indent: 2em;
-  -ms-writing-mode: tb-rl;
-  writing-mode: vertical-rl;
+	text-indent: 2em;
+	-ms-writing-mode: tb-rl;
+	writing-mode: vertical-rl;
 }
-.tategaki2{
-	font-family:"Yu Gothic", "游ゴシック", YuGothic, "游ゴシック体";
+
+.tategaki2 {
+	font-family: "Yu Gothic", "游ゴシック", YuGothic, "游ゴシック体";
 	color: white;
-	 text-indent: 4em;
-  -ms-writing-mode: tb-rl;
-  writing-mode: vertical-rl;
+	text-indent: 4em;
+	-ms-writing-mode: tb-rl;
+	writing-mode: vertical-rl;
 }
 
-.nagoyaColor{
-	color:  #ee7800;
+.nagoyaColor {
+	color: #ee7800;
 }
 
-header{
+header {
 	background-color: #996600;
 }
 
-p.center{
+p.center {
 
-text-align:center;
-
-}
-
-.center{
-
-text-align:center;
-
+	text-align: center;
 
 }
 
-.upgradePage{
-    text-align: center; 
-    padding: 5px;
-    width: 80%;
+.center {
+
+	text-align: center;
+
 
 }
 
-.background{
+.upgradePage {
+	text-align: center;
+	padding: 5px;
+	width: 80%;
+
+}
+
+.background {
 	background-color: #27acd9;
 }
 
 
-.upgradeButton{
+.upgradeButton {
 	text-align: center;
 	vertical-align: middle;
 	text-decoration: none;
@@ -217,7 +227,7 @@ text-align:center;
 	color: #fff;
 }
 
-.withdrawalButton{
+.withdrawalButton {
 	text-align: center;
 	vertical-align: middle;
 	text-decoration: none;
@@ -233,41 +243,62 @@ text-align:center;
 
 
 
-.policy{
-    margin: 20px auto;
-  text-align:center;
+.policy {
+	margin: 20px auto;
+	text-align: center;
 }
+
 .submit_btnarea {
-    width: 360px;
-    margin: 0 auto;
+	width: 360px;
+	margin: 0 auto;
 }
-.form_btn{
-    background: #005183;
-    border: 1px solid #fff;
-    color: #fff;
-    width: 100%;
-    padding: 10px;
-    font-size: 16px;
-    cursor: pointer;
-    transition: all .5s ease-out;
-    position: relative;
+
+.form_btn {
+	background: #005183;
+	border: 1px solid #fff;
+	color: #fff;
+	width: 100%;
+	padding: 10px;
+	font-size: 16px;
+	cursor: pointer;
+	transition: all .5s ease-out;
+	position: relative;
 }
- 
-.form_btn:hover{
-    border: 1px solid #005183;
-    background: #fff;
-    color: #005183;
+
+.form_btn:hover {
+	border: 1px solid #005183;
+	background: #fff;
+	color: #005183;
 }
+
 button[type="submit"][disabled] {
-            background-color: #fff;
-            color: #ccc;
-            border-color: #ccc;
-            cursor: default;
-        }
-     
-    button[type="submit"][disabled]:hover{
-        opacity:1;
-    }
+	background-color: #fff;
+	color: #ccc;
+	border-color: #ccc;
+	cursor: default;
+}
+
+button[type="submit"][disabled]:hover {
+	opacity: 1;
+}
+
+a.btn--orange {
+	color: #fff;
+	background-color: #eb6100;
+	border-bottom: 5px solid #b84c00;
+}
+
+a.btn--orange:hover {
+	margin-top: 3px;
+	color: #fff;
+	background: #f56500;
+	border-bottom: 2px solid #b84c00;
+}
+
+a.btn--shadow {
+	-webkit-box-shadow: 0 3px 5px rgba(0, 0, 0, .3);
+	box-shadow: 0 3px 5px rgba(0, 0, 0, .3);
+}
 
 
 @media screen and (min-width: 1400px) {
