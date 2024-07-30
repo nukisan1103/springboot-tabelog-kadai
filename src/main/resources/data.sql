@@ -61,6 +61,7 @@ INSERT IGNORE INTO users (id, role_id, name, kana, email, password, address, pho
 INSERT IGNORE INTO users (id, role_id, name, kana, email, password, address, phone_number,enabled) VALUES (10, 2, '八郎', 'ハチロウ', 'hati@gmail.com', '$2a$10$2JNjTwZBwo7fprL2X4sv.OEKqxnVtsVQvuXDkI8xVGix.U3W5B7CO', '厚木市西', '090-0000-0000',true);
 INSERT IGNORE INTO users (id, role_id, name, kana, email, password, address, phone_number,enabled) VALUES (18, 1, '九郎', 'クロウ', 'kyu@gmail.com', '$2a$10$2JNjTwZBwo7fprL2X4sv.OEKqxnVtsVQvuXDkI8xVGix.U3W5B7CO', '厚木市西', '090-0000-0000',true);
 INSERT IGNORE INTO users (id, role_id, name, kana, email, password, address, phone_number,enabled) VALUES (19, 1, 'アップグレードテスト', 'アップグレードテスト', 'upgrade@test.com', '$2a$10$2JNjTwZBwo7fprL2X4sv.OEKqxnVtsVQvuXDkI8xVGix.U3W5B7CO', '厚木市西', '090-0000-0000',true);
+INSERT IGNORE INTO users (id, role_id, name, kana, email, password, address, phone_number,enabled) VALUES (20, 3, '管理太郎', 'カンリタロウ', 'kanri@test.com', '$2a$10$2JNjTwZBwo7fprL2X4sv.OEKqxnVtsVQvuXDkI8xVGix.U3W5B7CO', '厚木市西', '090-0000-0000',true);
 
 --reservationテーブル--
 INSERT IGNORE INTO reservations (id, restaurant_id, user_id, reservation_datetime, reservation_time, number_of_people) VALUES (1, 1, 1, '2023-04-01', '11:00', 2);
